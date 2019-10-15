@@ -15,6 +15,7 @@ function main() {
 function processForm() {
     var nextStu = getStudentFromForm();
     displayStudent(nextStu);
+    clearForm();
 }
 function getStudentFromForm() {
     var tempStu = new Student();
@@ -50,4 +51,11 @@ function showStudentData() {
     document.querySelector("#display > h2").innerHTML = name;
     var p = document.querySelector("#display > p");
     p.innerHTML = name + " is studying " + program;
+}
+function clearForm() {
+    var allTextBoxes = document.querySelectorAll("input[type=text]");
+    for (var i = 0; i < allTextBoxes.length; i++) {
+        var currBox = allTextBoxes[i];
+        currBox.value = "";
+    }
 }

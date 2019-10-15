@@ -36,7 +36,7 @@ function main(){
 function processForm(){
     let nextStu:Student = getStudentFromForm();
     displayStudent(nextStu);
-    //clearForm();
+    clearForm();
 }
 
 function getStudentFromForm():Student{
@@ -72,9 +72,6 @@ function displayStudent(s:Student):void{
 
     // Call showStudentData when the <li> is clicked
     newItem.onclick = showStudentData;
-
-    
-
 }
 
 function showStudentData(){
@@ -89,8 +86,12 @@ function showStudentData(){
 }
 
 
-/*
+
 function clearForm(){
-    
+    let allTextBoxes = document.querySelectorAll("input[type=text]");
+
+    for(let i = 0; i < allTextBoxes.length; i++){
+        let currBox = <HTMLInputElement>allTextBoxes[i];
+        currBox.value = "";
+    }
 }
-*/
