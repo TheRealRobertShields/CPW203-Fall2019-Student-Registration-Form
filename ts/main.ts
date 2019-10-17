@@ -26,6 +26,10 @@ let fName = stu.firstName;  // GET
 stu.address = "123 fake street";
 
 
+// Constants
+const programAttr = "data-program";
+
+
 window.onload = main;
 
 function main(){
@@ -43,12 +47,11 @@ function getStudentFromForm():Student{
     
     let tempStu = new Student();
     tempStu.firstName = getInputValue("first-name");
-    
     tempStu.lastName = getInputValue("last-name");
     tempStu.dateOfBirth = new Date(getInputValue("dob"));
     tempStu.address = getInputValue("address");
     tempStu.program = getInputValue("program");
-    console.log(tempStu.program);
+    console.log(tempStu);
     return tempStu;
 }
 
@@ -58,18 +61,21 @@ function getInputValue(id:string):string{
 }
 
 // Display functions don't return anything, void.
-function displayStudent(s:Student):void{
+function displayStudent(stu:Student):void{
     let newItem = document.createElement("li");     // Create <li>.
-    newItem.innerText = s.firstName + " " + s.lastName;
+    newItem.innerText = stu.firstName + " " + stu.lastName;
     let displaySection = document.querySelector("#student-list");
     let list = displaySection.querySelector("ul");
-    list.appendChild(newItem);    // Add <li> as a child to <ul>.
+
     // Embed student data in <li>
-    console.log(newItem);
-    newItem.setAttribute("data-program", stu.program);
+    
+    newItem.setAttribute(programAttr, stu.program);
     newItem.setAttribute("data-address", stu.address);
     newItem.setAttribute("data-dateOfBirth", stu.dateOfBirth.toString());
-
+    console.log(newItem);
+    // Add <li> as a child to <ul>.
+    list.appendChild(newItem);    
+    
     // Call showStudentData when the <li> is clicked
     newItem.onclick = showStudentData;
 }
@@ -78,9 +84,12 @@ function showStudentData(){
     console.log(this);
     let currListItem = <HTMLLIElement>this;
     let name = currListItem.innerText;
-    let program = currListItem.getAttribute("data-program");
-    alert(name + " is studying " + program);
-    document.querySelector("#display > h2").innerHTML = name;
+    let program = currListItem.getAttribute(programAttr);
+
+    // Display the student name in the <h2> under the <div id="display">
+    let h2 = document.querySelector("#display > h2");
+    h2.innerHTML = name;
+
     let p = document.querySelector("#display > p");
     p.innerHTML = name + " is studying " + program;
 }
